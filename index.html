@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="selfieApp">
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Test task for Web Dev position</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/fonts.css" rel="stylesheet" />
+    <link href="css/media.css" rel="stylesheet" />
+    <link href="css/form.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!--header, pop-up menu-->
+    <header>
+        <nav>
+            <div class="container"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle collapsed menu_btn" data-toggle="collapse" data-target="#top_menu">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </button>
+                        <a href="index.html" class="navbar-brand logo">
+                            <img src="img/logo.png" alt="Site logo" />
+                        </a>
+                    </div>
+
+                    <div class="collapse navbar-collapse navbar-right" id="top_menu">
+                        <ul class="menu">
+                            <li><a href="#" data-toggle="modal" data-target="#infoModal">About</a></li>
+                            <li><a href="#">link</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--form, selfie tool-->
+    <section class="user_selfie" ng-controller="SelfieController as selfieCtrl" ng-cloak>
+        <div class="container">
+            <div class="row">
+                <form name="userSelfieForm" novalidate class="form-horizontal" ng-submit="selfieCtrl.addUserSelfie(selfieCtrl.newUser, userSelfieForm.$valid)">
+                    <!--<div class="form-group">
+                        <label class="control-label col-sm-4">First Name*</label>
+                        <div class="col-sm-6 error">
+                            <input name="firstName" type="text"
+                                   class="form-control"
+                                   ng-required="selfieCtrl.requireValue" ng-minlength="2" ng-maxlength="20" ng-model="selfieCtrl.newUser.firstName"
+                                   tooltip="{{selfieCtrl.tooltilAlert.firstName}}" tooltip-placement="bottom" />
+                            <div ng-show="selfieCtrl.showError">
+                                {{selfieCtrl.getError(userSelfieForm.firstName.$error)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Last Name*</label>
+                        <div class="col-sm-6 error">
+                            <input name="lastName" type="text"
+                                   class="form-control"
+                                   ng-required="selfieCtrl.requireValue" ng-minlength="2" ng-maxlength="20" ng-pattern="selfieCtrl.patternLetters" ng-model="selfieCtrl.newUser.lastName"
+                                   tooltip="{{selfieCtrl.tooltilAlert.lastName}}" tooltip-placement="bottom" />
+                            <div ng-show="selfieCtrl.showError">
+                                {{selfieCtrl.getError(userSelfieForm.lastName.$error)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Email *</label>
+                        <div class="col-sm-6 error">
+                            <input name="email" type="email"
+                                   class="form-control"
+                                   ng-required="selfieCtrl.requireValue" ng-model="selfieCtrl.newUser.email"
+                                   tooltip="{{selfieCtrl.tooltilAlert.email}}" tooltip-placement="bottom" />
+                            <div ng-show="selfieCtrl.showError">
+                                {{selfieCtrl.getError(userSelfieForm.email.$error)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Telephone number*</label>
+                        <div class="col-sm-6 error">
+                            <input name="tel" type="tel"
+                                   class="form-control"
+                                   ng-required="selfieCtrl.requireValue" ng-model="selfieCtrl.newUser.tel" ng-pattern="selfieCtrl.patternTel"
+                                   tooltip="{{selfieCtrl.tooltilAlert.tel}}" tooltip-placement="bottom"/>
+                            <div ng-show="selfieCtrl.showError">
+                                {{selfieCtrl.getError(userSelfieForm.tel.$error)}}
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Skype</label>
+                        <div class="col-sm-6 error">
+                            <input name="skype" type="text"
+                                   class="form-control"
+                                   ng-model="selfieCtrl.newUser.skype" skype-validation
+                                   tooltip="{{selfieCtrl.tooltilAlert.skype}}" tooltip-placement="bottom"/>
+                            <div ng-show="selfieCtrl.showError">
+                                {{selfieCtrl.getError(userSelfieForm.skype.$error)}}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Notes</label>
+                        <div class="col-sm-6 error">
+                            <textarea class="form-control" rows="3"
+                                      ng-model="selfieCtrl.newUser.notes" maxlength="100"
+                                      tooltip="{{selfieCtrl.tooltilAlert.notes}}" tooltip-placement="bottom"></textarea>
+                        </div>
+                    </div>
+                    <video id="video" width="640" height="480" autoplay></video>
+                    <button id="snap">Snap Photo</button>
+                    <canvas id="canvas" width="640" height="480"></canvas>
+                    <p>Skype Error: {{userSelfieForm.skype.$error.skype}}</p>
+                    <!--<div class="form-group">
+                        <label class="control-label col-sm-3">Mobile</label>
+                        <div class="col-sm-8">
+                            <input name="mobile" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Skype</label>
+                        <div class="col-sm-8">
+                            <input name="skype" type="text" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Notes</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-8 col-sm-offset-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input name="agreed" type="checkbox" required ng-model="newUser.agreed"/>
+                                    I agree to the terms and conditions
+                                </label>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Validation TEST</label>
+                        <div class="col-sm-6">
+                            <input name="sample" class="form-control" ng-model="inputValue" ng-required="selfieCtrl.requireValue" ng-minlength="2" ng-maxlength="20" ng-pattern="selfieCtrl.matchPattern" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 col-sm-offset-3">
+                            <button type="submit" class="btn-block btn-danger">
+                                Add me
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        Message: {{selfieCtrl.message}}
+                        <div>
+                            valid: {{selfieCtrl.userSelfieForm.$valid}}
+                        </div>
+                        <hr>
+                        <p>Required Error: {{userSelfieForm.sample.$error.required}}</p>
+                        <p>Min Length Error: {{userSelfieForm.sample.$error.minlength}}</p>
+                        <p>Max Length Error: {{userSelfieForm.sample.$error.maxlength}}</p>
+                        <p>Pattern Error: {{userSelfieForm.sample.$error.pattern}}</p>
+                        <p>Element Valid: {{userSelfieForm.sample.$valid}}</p>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!--selfie list-->
+<section class="images_s">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 p0">
+                    <div class="image_block">
+                        <div class="image_wrap">
+                            <div class="image_desc">
+                                <h3>Project name</h3>
+                                <p>some description</p>
+                            </div>
+                        </div>
+                        <img src="img/work-1.jpg" alt="work item" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 p0">
+                    <div class="image_block">
+                        <div class="image_wrap">
+                            <div class="image_desc">
+                                <h3>Project name</h3>
+                                <p>some description</p>
+                            </div>
+                        </div>
+                        <img src="img/work-2.jpg" alt="work item" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 p0">
+                    <div class="image_block">
+                        <div class="image_wrap">
+                            <div class="image_desc">
+                                <h3>Project name</h3>
+                                <p>some description</p>
+                            </div>
+                        </div>
+                        <img src="img/work-3.jpg" alt="work item" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 p0">
+                    <div class="image_block">
+                        <div class="image_wrap">
+                            <div class="image_desc">
+                                <h3>Project name</h3>
+                                <p>some description</p>
+                            </div>
+                        </div>
+                        <img src="img/work-4.jpg" alt="work item" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 p0">
+                    <div class="image_block">
+                        <div class="image_wrap">
+                            <div class="image_desc">
+                                <h3>Project name</h3>
+                                <p>some description</p>
+                            </div>
+                        </div>
+                        <img src="img/work-5.jpg" alt="work item" class="img-responsive" />
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 p0">
+                    <div class="image_block">
+                        <div class="image_wrap">
+                            <div class="image_desc">
+                                <h3>Project name</h3>
+                                <p>some description</p>
+                            </div>
+                        </div>
+                        <img src="img/work-6.jpg" alt="work item" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--App features-->
+<section class="params_s">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="param_block">
+                        <i class="fa fa-desktop" aria-hidden="true"></i>
+                        <h3>Ease to do</h3>
+                        <p>
+                            Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="param_block">
+                        <i class="fa fa-desktop" aria-hidden="true"></i>
+                        <h3>Ease to do</h3>
+                        <p>
+                            Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="param_block">
+                        <i class="fa fa-desktop" aria-hidden="true"></i>
+                        <h3>Ease to do</h3>
+                        <p>
+                            Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--footer-->
+<footer>
+        <div class="main_footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="footer_item">
+                            <h5>
+                                location
+                            </h5>
+                            <p>
+                                Laoreet ac, aliquam sit amet justo, <br />orci nisl iaculis eros, a tincidunt.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="footer_item">
+                            <h5>
+                                share with love
+                            </h5>
+                            <button class="soc_btn">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </button>
+                            <button class="soc_btn">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </button>
+                            <button class="soc_btn">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hidden-sm hidden-xs">
+                        <div class="footer_item">
+                            <h5>
+                                about company
+                            </h5>
+                            <p>
+                                Laoreet ac, aliquam sit justo, <br />orci nisl iaculis eros, tinciduntiaculis a tinciduntiaculis eros.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3 copyright_txt">
+                        Copyright tincidunt integer eu augue augue nunc.<br />
+                        Sapien elit in malesuada semper mi, id.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal fade modal_info" id="infoModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">About App (used to test bootstrap modal)</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row p30">
+                        <div class="col-md-10 col-md-offset-1">
+                            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+                        </div>
+                    </div>
+                    <form action="#" id="modalForm">
+                        <input type="text" class="form-control" required placeholder="User Name" />
+                        <input type="email" class="form-control" required placeholder="User E-mail" />
+                        <input type="password" class="form-control" required placeholder="User Password" />
+                        <input type="submit" value="Send" class="btn-danger btn-block" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--scripts-->
+    <script src="libs/angularjs/angular.js"></script>
+    <script src="libs/angularjs/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+    <script src="libs/jquery/jquery-2.1.4.min.js"></script>
+    <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="js/common.js"></script>
+    <script src="js/selfieApp.js"></script>
+    <script src="js/selfieController.js"></script>
+
+</body>
+</html>

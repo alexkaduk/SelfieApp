@@ -1,0 +1,21 @@
+﻿/*form .ng-valid.ng-dirty {
+    background-color: rgb(209, 249, 209);
+}
+form .ng-invalid.ng-dirty {
+    background-color: lightgoldenrodyellow;
+    box-shadow: inset 0 -2px 0 red;
+}
+form .ng-invalid-email {
+    color: red;
+    border-bottom: 2px solid red;
+}*/
+.error>div{
+    color: red;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: left;
+}
+form .ng-invalid-email {
+    color: red;
+    border-bottom: 2px solid red;
+}
