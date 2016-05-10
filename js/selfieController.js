@@ -11,7 +11,7 @@
         vm.tooltilAlert = {
             firstName: "Min length 2, max length 20",
             lastName: "Min length 2, max length 20",
-            email: "Email on domain @udelphi.com",
+            email: "Email in @udelphi.com domain",
             tel: "Telephone number, format +38(999)999-99-99",
             skype: "Beginning with latin letter. Length between 6 and 32 characters. Only letters and numbers. Spaces and special characters are not allowed",
             notes: "User notes. Max length 100"
@@ -36,7 +36,7 @@
                     return "This field is required.";
                 }
                 if (error.email) {
-                    return "Input correct email.";
+                    return "Input correct email in udelphi.com domain.";
                 }
                 if (error.minlength) {
                     return "Minimal length 2 characters.";
@@ -48,7 +48,7 @@
                     return "Input correct telephone number, format: +38(999)999-99-99.";
                 }
                 if (error.skype) {
-                    return "Input correct skype login.";
+                    return "Input correct skype login, e.g. myskype.";
                 }
             }
             return "";

@@ -3,29 +3,19 @@
 
     angular
         .module("selfieApp")
-        .directive("skypeValidation", skypeValidation);
+        .directive("emailValidation", emailValidation);
 
-    function skypeValidation() {
+    function emailValidation() {
         
         return {
             require: "ngModel",
             link: function (scope, element, attributes, ctrl) {
                 console.log(scope);
 
-                ctrl.$validators.skype = function (modelValue, viewValue) {
-                    var SKYPE_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@udelphi\.com$/i;
+                ctrl.$validators.email = function (modelValue, viewValue) {
+                    var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@udelphi\.com$/i;
 
-                    if (ctrl.$isEmpty(modelValue)) {
-                        return true;
-                    }
-                    if (SKYPE_REGEXP.test(viewValue)) {
-                        return true;
-                    }
-
-                    return false;
-
-
-                    //return EMAIL_REGEXP.test(viewValue) ? true : false;
+                    return EMAIL_REGEXP.test(viewValue) ? true : false;
                 }
             }
 

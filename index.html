@@ -49,7 +49,7 @@
         <div class="container">
             <div class="row">
                 <form name="userSelfieForm" novalidate class="form-horizontal" ng-submit="selfieCtrl.addUserSelfie(selfieCtrl.newUser, userSelfieForm.$valid)">
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label class="control-label col-sm-4">First Name*</label>
                         <div class="col-sm-6 error">
                             <input name="firstName" type="text"
@@ -66,7 +66,7 @@
                         <div class="col-sm-6 error">
                             <input name="lastName" type="text"
                                    class="form-control"
-                                   ng-required="selfieCtrl.requireValue" ng-minlength="2" ng-maxlength="20" ng-pattern="selfieCtrl.patternLetters" ng-model="selfieCtrl.newUser.lastName"
+                                   ng-required="selfieCtrl.requireValue" ng-minlength="2" ng-maxlength="20" ng-model="selfieCtrl.newUser.lastName"
                                    tooltip="{{selfieCtrl.tooltilAlert.lastName}}" tooltip-placement="bottom" />
                             <div ng-show="selfieCtrl.showError">
                                 {{selfieCtrl.getError(userSelfieForm.lastName.$error)}}
@@ -78,25 +78,26 @@
                         <div class="col-sm-6 error">
                             <input name="email" type="email"
                                    class="form-control"
-                                   ng-required="selfieCtrl.requireValue" ng-model="selfieCtrl.newUser.email"
+                                   ng-required="selfieCtrl.requireValue" ng-model="selfieCtrl.newUser.email" email-validation
                                    tooltip="{{selfieCtrl.tooltilAlert.email}}" tooltip-placement="bottom" />
                             <div ng-show="selfieCtrl.showError">
+                                <p ng-if="userSelfieForm.email.$error.required"></p>
                                 {{selfieCtrl.getError(userSelfieForm.email.$error)}}
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-4">Telephone number*</label>
+                        <label class="control-label col-sm-4">Telephone number</label>
                         <div class="col-sm-6 error">
                             <input name="tel" type="tel"
                                    class="form-control"
-                                   ng-required="selfieCtrl.requireValue" ng-model="selfieCtrl.newUser.tel" ng-pattern="selfieCtrl.patternTel"
+                                   ng-model="selfieCtrl.newUser.tel" ng-pattern="selfieCtrl.patternTel"
                                    tooltip="{{selfieCtrl.tooltilAlert.tel}}" tooltip-placement="bottom"/>
                             <div ng-show="selfieCtrl.showError">
                                 {{selfieCtrl.getError(userSelfieForm.tel.$error)}}
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Skype</label>
                         <div class="col-sm-6 error">
@@ -118,28 +119,12 @@
                                       tooltip="{{selfieCtrl.tooltilAlert.notes}}" tooltip-placement="bottom"></textarea>
                         </div>
                     </div>
-                    <video id="video" width="640" height="480" autoplay></video>
+
+                    <!--<video id="video" width="640" height="480" autoplay></video>
                     <button id="snap">Snap Photo</button>
                     <canvas id="canvas" width="640" height="480"></canvas>
-                    <p>Skype Error: {{userSelfieForm.skype.$error.skype}}</p>
-                    <!--<div class="form-group">
-                        <label class="control-label col-sm-3">Mobile</label>
-                        <div class="col-sm-8">
-                            <input name="mobile" type="text" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Skype</label>
-                        <div class="col-sm-8">
-                            <input name="skype" type="text" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Notes</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                    </div>
+                    -->
+                    <!--
                     <div class="form-group">
                         <div class="col-sm-8 col-sm-offset-3">
                             <div class="checkbox">
@@ -383,6 +368,8 @@
     <script src="js/common.js"></script>
     <script src="js/selfieApp.js"></script>
     <script src="js/selfieController.js"></script>
+    <script src="js/emailValidation.js"></script>
+    <script src="js/skypeValidation.js"></script>
 
 </body>
 </html>
