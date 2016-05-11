@@ -19,3 +19,9 @@ form .ng-invalid-email {
     color: red;
     border-bottom: 2px solid red;
 }
+textarea.noresize {
+    -moz-resize: none;
+    -ms-resize: none;
+    -o-resize: none;
+    resize: none;
+}

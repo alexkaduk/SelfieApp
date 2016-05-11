@@ -27,8 +27,10 @@
 //            video.play();
 //        }, errBack);
 //    }
+
+//    video.addEventListener("click", function () {
+//        context.drawImage(video, 0, 0, 170, 128);
+//    });
+
 //}, false);
 
-//document.getElementById("snap").addEventListener("click", function () {
-//    context.drawImage(video, 0, 0, 640, 480);
-//});

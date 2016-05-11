@@ -11,13 +11,15 @@ body {
 .p30 {
     margin-bottom: 30px;
 }
+.mb30 {
+    margin-bottom: 30px;
+}
 
 /*header*/
 header {
     height: 180px;
     background-image: url('../img/vin.jpg');
     background-size: cover;
-    margin-bottom: 30px;
 }
 nav {
     height: 90px;
@@ -137,4 +139,18 @@ nav {
     color: #9d9fb2;
     text-align: center;
     font-size: 12px;
+}
+
+/*seflie*/
+.seflie{
+    float: left;
+    position: relative;
+}
+.seflie i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.8);
 }

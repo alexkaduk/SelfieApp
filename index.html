@@ -17,9 +17,9 @@
     <link href="css/form.css" rel="stylesheet" />
 </head>
 
-<body>
+<body ng-controller="SelfieController as selfieCtrl" ng-cloak>
     <!--header, pop-up menu-->
-    <header>
+    <header class="mb30">
         <nav>
             <div class="container"></div>
             <div class="container">
@@ -45,7 +45,7 @@
     </header>
 
     <!--form, selfie tool-->
-    <section class="user_selfie" ng-controller="SelfieController as selfieCtrl" ng-cloak>
+    <section class="user_selfie mb30">
         <div class="container">
             <div class="row">
                 <form name="userSelfieForm" novalidate class="form-horizontal" ng-submit="selfieCtrl.addUserSelfie(selfieCtrl.newUser, userSelfieForm.$valid)">
@@ -62,11 +62,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-4">Last Name*</label>
+                        <label class="control-label col-sm-4">Last Name</label>
                         <div class="col-sm-6 error">
                             <input name="lastName" type="text"
                                    class="form-control"
-                                   ng-required="selfieCtrl.requireValue" ng-minlength="2" ng-maxlength="20" ng-model="selfieCtrl.newUser.lastName"
+                                   ng-minlength="2" ng-maxlength="20" ng-model="selfieCtrl.newUser.lastName"
                                    tooltip="{{selfieCtrl.tooltilAlert.lastName}}" tooltip-placement="bottom" />
                             <div ng-show="selfieCtrl.showError">
                                 {{selfieCtrl.getError(userSelfieForm.lastName.$error)}}
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-4">Email *</label>
+                        <label class="control-label col-sm-4">Email*</label>
                         <div class="col-sm-6 error">
                             <input name="email" type="email"
                                    class="form-control"
@@ -92,7 +92,7 @@
                             <input name="tel" type="tel"
                                    class="form-control"
                                    ng-model="selfieCtrl.newUser.tel" ng-pattern="selfieCtrl.patternTel"
-                                   tooltip="{{selfieCtrl.tooltilAlert.tel}}" tooltip-placement="bottom"/>
+                                   tooltip="{{selfieCtrl.tooltilAlert.tel}}" tooltip-placement="bottom" />
                             <div ng-show="selfieCtrl.showError">
                                 {{selfieCtrl.getError(userSelfieForm.tel.$error)}}
                             </div>
@@ -104,7 +104,7 @@
                             <input name="skype" type="text"
                                    class="form-control"
                                    ng-model="selfieCtrl.newUser.skype" skype-validation
-                                   tooltip="{{selfieCtrl.tooltilAlert.skype}}" tooltip-placement="bottom"/>
+                                   tooltip="{{selfieCtrl.tooltilAlert.skype}}" tooltip-placement="bottom" />
                             <div ng-show="selfieCtrl.showError">
                                 {{selfieCtrl.getError(userSelfieForm.skype.$error)}}
 
@@ -114,128 +114,63 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Notes</label>
                         <div class="col-sm-6 error">
-                            <textarea class="form-control" rows="3"
+                            <textarea class="form-control noresize" rows="3"
                                       ng-model="selfieCtrl.newUser.notes" maxlength="100"
                                       tooltip="{{selfieCtrl.tooltilAlert.notes}}" tooltip-placement="bottom"></textarea>
                         </div>
                     </div>
-
-                    <!--<video id="video" width="640" height="480" autoplay></video>
-                    <button id="snap">Snap Photo</button>
-                    <canvas id="canvas" width="640" height="480"></canvas>
-                    -->
-                    <!--
                     <div class="form-group">
-                        <div class="col-sm-8 col-sm-offset-3">
+                        <div class="col-sm-6 col-sm-offset-4">
                             <div class="checkbox">
                                 <label>
-                                    <input name="agreed" type="checkbox" required ng-model="newUser.agreed"/>
-                                    I agree to the terms and conditions
+                                    <input name="agreed" type="checkbox"
+                                           ng-model="selfieCtrl.isAddSelfie" />
+                                    Add selfie <small ng-show="selfieCtrl.isAddSelfie">(click on video for selfie)</small>
                                 </label>
                             </div>
                         </div>
-                    </div>-->
-                    <div class="form-group">
-                        <label class="control-label col-sm-4">Validation TEST</label>
-                        <div class="col-sm-6">
-                            <input name="sample" class="form-control" ng-model="inputValue" ng-required="selfieCtrl.requireValue" ng-minlength="2" ng-maxlength="20" ng-pattern="selfieCtrl.matchPattern" />
+                    </div>
+                    <div class="form-group" ng-show="selfieCtrl.isAddSelfie">
+                        <div class="col-sm-6 col-md-offset-4 ">
+                            <div id="selfie" class="seflie">
+                                <video autoplay ng-show="selfieCtrl.isVideoShown"
+                                       width="{{selfieCtrl.selfieWidth}}" height="{{selfieCtrl.selfieHeight}}"
+                                       tooltip="{{selfieCtrl.tooltilAlert.video}}" tooltip-placement="bottom"></video>
+                                <canvas ng-show="selfieCtrl.isCanvasShown"
+                                        width="{{selfieCtrl.selfieWidth}}" height="{{selfieCtrl.selfieHeight}}"
+                                        tooltip="{{selfieCtrl.tooltilAlert.canvas}}" tooltip-placement="bottom"></canvas>
+                                <i class="fa fa-times" aria-hidden="true"
+                                   ng-show="selfieCtrl.isCanvasShown"
+                                   tooltip="{{selfieCtrl.tooltilAlert.canvasClose}}" tooltip-placement="bottom"></i>
+                            </div>
+
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-3 col-sm-offset-3">
+                        <div class="col-sm-3 col-sm-offset-4">
                             <button type="submit" class="btn-block btn-danger">
                                 Add me
                             </button>
                         </div>
                     </div>
-
-                    <div>
-                        Message: {{selfieCtrl.message}}
-                        <div>
-                            valid: {{selfieCtrl.userSelfieForm.$valid}}
-                        </div>
-                        <hr>
-                        <p>Required Error: {{userSelfieForm.sample.$error.required}}</p>
-                        <p>Min Length Error: {{userSelfieForm.sample.$error.minlength}}</p>
-                        <p>Max Length Error: {{userSelfieForm.sample.$error.maxlength}}</p>
-                        <p>Pattern Error: {{userSelfieForm.sample.$error.pattern}}</p>
-                        <p>Element Valid: {{userSelfieForm.sample.$valid}}</p>
-                    </div>
-
-
                 </form>
             </div>
         </div>
     </section>
 
     <!--selfie list-->
-<section class="images_s">
+    <section class="images_s">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4 col-sm-6 p0">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 p0" ng-repeat="user in selfieCtrl.users">
                     <div class="image_block">
                         <div class="image_wrap">
                             <div class="image_desc">
-                                <h3>Project name</h3>
-                                <p>some description</p>
+                                <h3>{{user.firstName}} {{user.lastName}}</h3>
+                                <p>{{user.email}}</p>
                             </div>
                         </div>
-                        <img src="img/work-1.jpg" alt="work item" class="img-responsive" />
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 p0">
-                    <div class="image_block">
-                        <div class="image_wrap">
-                            <div class="image_desc">
-                                <h3>Project name</h3>
-                                <p>some description</p>
-                            </div>
-                        </div>
-                        <img src="img/work-2.jpg" alt="work item" class="img-responsive" />
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 p0">
-                    <div class="image_block">
-                        <div class="image_wrap">
-                            <div class="image_desc">
-                                <h3>Project name</h3>
-                                <p>some description</p>
-                            </div>
-                        </div>
-                        <img src="img/work-3.jpg" alt="work item" class="img-responsive" />
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 p0">
-                    <div class="image_block">
-                        <div class="image_wrap">
-                            <div class="image_desc">
-                                <h3>Project name</h3>
-                                <p>some description</p>
-                            </div>
-                        </div>
-                        <img src="img/work-4.jpg" alt="work item" class="img-responsive" />
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 p0">
-                    <div class="image_block">
-                        <div class="image_wrap">
-                            <div class="image_desc">
-                                <h3>Project name</h3>
-                                <p>some description</p>
-                            </div>
-                        </div>
-                        <img src="img/work-5.jpg" alt="work item" class="img-responsive" />
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 p0">
-                    <div class="image_block">
-                        <div class="image_wrap">
-                            <div class="image_desc">
-                                <h3>Project name</h3>
-                                <p>some description</p>
-                            </div>
-                        </div>
-                        <img src="img/work-6.jpg" alt="work item" class="img-responsive" />
+                        <img src="{{user.selfie}}" alt="{{user.firstName}} {{user.lastName}}" class="img-responsive" />
                     </div>
                 </div>
             </div>
@@ -243,13 +178,13 @@
     </section>
 
     <!--App features-->
-<section class="params_s">
+    <section class="params_s">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-sm-4">
                     <div class="param_block">
-                        <i class="fa fa-desktop" aria-hidden="true"></i>
-                        <h3>Ease to do</h3>
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        <h3>Form validation</h3>
                         <p>
                             Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
                         </p>
@@ -257,8 +192,8 @@
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="param_block">
-                        <i class="fa fa-desktop" aria-hidden="true"></i>
-                        <h3>Ease to do</h3>
+                        <i class="fa fa-mobile" aria-hidden="true"></i>
+                        <h3>Adaptive design</h3>
                         <p>
                             Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
                         </p>
@@ -266,8 +201,8 @@
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="param_block">
-                        <i class="fa fa-desktop" aria-hidden="true"></i>
-                        <h3>Ease to do</h3>
+                        <i class="fa fa-camera-retro" aria-hidden="true"></i>
+                        <h3>Ease seflie</h3>
                         <p>
                             Ut fusce varius nisl ac ipsum gravida vel pretium tellus tincidunt integer eu augue augue nunc elit dolor, luctus placerat.
                         </p>
@@ -278,7 +213,7 @@
     </section>
 
     <!--footer-->
-<footer>
+    <footer>
         <div class="main_footer">
             <div class="container">
                 <div class="row">
