@@ -22,8 +22,8 @@
 
                     return false;
                 }
-            }
-
+            },
+            restrict: "A"
         }
     }
 })();

@@ -15,8 +15,8 @@
 
                     return EMAIL_REGEXP.test(viewValue) ? true : false;
                 }
-            }
-
+            },
+            restrict: "A"
         }
     }
 })();

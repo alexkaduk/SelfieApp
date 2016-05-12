@@ -2,5 +2,5 @@
     "use strict";
 
     angular
-        .module("selfieApp", ['ui.bootstrap']);
+        .module("selfieApp", ["ui.bootstrap"]);
 })();
