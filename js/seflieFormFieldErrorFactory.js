@@ -3,7 +3,7 @@
 
     angular
         .module("selfieApp")
-        .service('seflieFormFieldErrorFactory', seflieFormFieldErrorFactory);
+        .service("seflieFormFieldErrorFactory", seflieFormFieldErrorFactory);
 
     function seflieFormFieldErrorFactory() {
         var vm = this;
